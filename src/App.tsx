@@ -72,7 +72,7 @@ const App = () => {
         initialViewState={{
           latitude: 40.67,
           longitude: -103.59,
-          zoom: 2.3
+          zoom: 1.5
         }}
         mapStyle={'mapbox://styles/mapbox/dark-v11'}
         mapboxAccessToken={import.meta.env.VITE_MAPBOX_ACCESS_TOKEN}
