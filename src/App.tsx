@@ -5,7 +5,7 @@ import { clusterLayer, clusterCountLayer, unclusteredPointLayer } from '../const
 import mapboxgl from 'mapbox-gl';
 
 
-const Globe = () => {
+const App = () => {
 
   const mapRef = useRef<MapRef>(null);
   const [userInteracting, setUserInteracting] = useState<boolean>(false);
@@ -18,7 +18,7 @@ const Globe = () => {
         map.easeTo({ center: newCenter, duration: 1000, easing: (n) => n });
       }
     }
-  };
+  }
 
   const handleUserInteraction = (event: MapLayerMouseEvent | ViewStateChangeEvent) => {
     if (event.type === 'mousedown') {
@@ -27,7 +27,6 @@ const Globe = () => {
       setUserInteracting(false);
       SpinGlobe();
     }
-    console.log('user interaction:', userInteracting)
   };
 
   const onClick = (event: MapLayerMouseEvent) => {
@@ -89,4 +88,4 @@ const Globe = () => {
   );
 };
 
-export default Globe;
+export default App;
