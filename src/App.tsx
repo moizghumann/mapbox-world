@@ -1,9 +1,9 @@
 import { useRef, useState } from 'react';
 import { Layer, Map, MapLayerMouseEvent, MapRef, Source, ViewStateChangeEvent } from 'react-map-gl';
-import settings from '../constants/settings'
 import calculateRotation from '../functions/calculateRotation'
 import { clusterLayer, clusterCountLayer, unclusteredPointLayer } from '../constants/layers';
 import mapboxgl from 'mapbox-gl';
+
 
 const Globe = () => {
 
@@ -19,6 +19,7 @@ const Globe = () => {
       }
     }
   };
+
   const handleUserInteraction = (event: MapLayerMouseEvent | ViewStateChangeEvent) => {
     if (event.type === 'mousedown') {
       setUserInteracting(true);
@@ -31,7 +32,6 @@ const Globe = () => {
 
   const onClick = (event: MapLayerMouseEvent) => {
     if (event.features) {
-      console.log(event.features)
       const feature = event.features[0];
       const clusterId = feature.properties?.cluster_id;
 
@@ -54,13 +54,12 @@ const Globe = () => {
   return (
     <div className='h-screen'>
       <Map
-        {...settings}
         initialViewState={{
           latitude: 40.67,
           longitude: -103.59,
           zoom: 2.3
         }}
-        mapStyle={'mapbox://styles/moizghuman/clovisydx00tu01nz0lqieckj'}
+        mapStyle={'mapbox://styles/mapbox/dark-v11'}
         mapboxAccessToken={import.meta.env.VITE_MAPBOX_ACCESS_TOKEN}
         ref={mapRef}
         onLoad={() => SpinGlobe()}
