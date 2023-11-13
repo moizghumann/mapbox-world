@@ -3,6 +3,8 @@
 
 Earth-Quake Explorer is a web application that leverages Mapbox GL JS to provide an interactive globe-based interface for visualizing earthquake data. The application allows users to explore global earthquake occurrences, cluster information, and smoothly navigate the interactive 3D globe.
 
+![Local Image](/public/globe-picture.png)
+
 ## Features
 
 - **Globe Navigation:** Explore the globe using various navigation controls, including zoom, pan, and rotation.
