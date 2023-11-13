@@ -41,11 +41,15 @@ const App = () => {
           return;
         }
 
-        mapRef.current?.easeTo({
-          center: feature.geometry.coordinates,
-          zoom,
-          duration: 500
-        });
+        if (feature.geometry.type === 'Point') {
+          const coordinates00 = feature.geometry.coordinates[0];
+          const coordinates01 = feature.geometry.coordinates[1];
+          mapRef.current?.easeTo({
+            center: [coordinates00, coordinates01],
+            zoom,
+            duration: 500
+          });
+        }
       });
     }
   };
