@@ -6,7 +6,7 @@ interface Props {
 }
 
 const calculateRotation = ({ map, userInteracting }: Props) => {
-    const secondsPerRevolution = 180;
+    const secondsPerRevolution = 120;
     const maxSpinZoom = 5;
     const slowSpinZoom = 3;
 
@@ -25,8 +25,6 @@ const calculateRotation = ({ map, userInteracting }: Props) => {
 
         return center;
     }
-
-    return null;
 };
 
 export default calculateRotation;

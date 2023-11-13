@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { Map, MapLayerMouseEvent, MapRef } from 'react-map-gl';
+import { Map, MapLayerMouseEvent, MapRef, ViewStateChangeEvent } from 'react-map-gl';
 import settings from '../constants/settings'
 import calculateRotation from '../functions/calculateRotation'
 
@@ -11,7 +11,6 @@ const Globe = () => {
 
   const SpinGlobe = () => {
     const map = mapRef.current;
-
     if (map != null) {
       const newCenter = calculateRotation({ map, userInteracting });
       if (newCenter) {
@@ -20,7 +19,7 @@ const Globe = () => {
     }
   };
 
-  const handleUserInteraction = (event: MapLayerMouseEvent) => {
+  const handleUserInteraction = (event: MapLayerMouseEvent | ViewStateChangeEvent) => {
     if (event.type === 'mousedown') {
       setUserInteracting(true);
     } else {
@@ -46,6 +45,8 @@ const Globe = () => {
         onLoad={() => SpinGlobe()}
         onMouseDown={e => handleUserInteraction(e)}
         onMouseUp={e => handleUserInteraction(e)}
+        // onDragStart={e => handleUserInteraction(e)}
+        // onDragEnd={e => handleUserInteraction(e)}
         onMoveEnd={() => SpinGlobe()}
       ></Map>
     </div>
