@@ -31,6 +31,7 @@ const Globe = () => {
 
   const onClick = (event: MapLayerMouseEvent) => {
     if (event.features) {
+      console.log(event.features)
       const feature = event.features[0];
       const clusterId = feature.properties?.cluster_id;
 
