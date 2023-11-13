@@ -1,8 +1,8 @@
 import { useRef, useState } from 'react';
 import { Layer, Map, MapLayerMouseEvent, MapRef, Source, ViewStateChangeEvent } from 'react-map-gl';
 import calculateRotation from '../functions/calculateRotation'
+import onClusterClick from '../functions/onClusterClick'
 import { clusterLayer, clusterCountLayer, unclusteredPointLayer } from '../constants/layers';
-import mapboxgl from 'mapbox-gl';
 
 
 const App = () => {
@@ -33,37 +33,6 @@ const App = () => {
     }
   };
 
-  // Handles the click event on the map. If a cluster is clicked, it retrieves the cluster's ID and
-  // triggers the expansion zoom effect, updating the map view to focus on the clicked cluster's center
-  // with a smooth easing motion and adjusted zoom level.
-  const onClick = (event: MapLayerMouseEvent) => {
-    if (event.features) {
-      const feature = event.features[0];
-      const clusterId = feature.properties?.cluster_id;
-
-      // retrieves the GeoJSON source named 'earthquakes' from the Mapbox map instance, casting it to the GeoJSON source type
-      const mapboxSource = mapRef.current?.getSource('earthquakes') as mapboxgl.GeoJSONSource;
-
-      // Retrieves the cluster expansion zoom level for a given cluster ID using the Mapbox GeoJSON source.
-      // If successful, it updates the map view to focus on the clicked cluster, easing to the new center and zoom level.
-      mapboxSource.getClusterExpansionZoom(clusterId, (err, zoom) => {
-        if (err) {
-          return;
-        }
-
-        if (feature.geometry.type === 'Point') {
-          const coordinates00 = feature.geometry.coordinates[0];
-          const coordinates01 = feature.geometry.coordinates[1];
-          mapRef.current?.easeTo({
-            center: [coordinates00, coordinates01],
-            zoom,
-            duration: 500
-          });
-        }
-      });
-    }
-  };
-
   return (
     <div className='h-screen'>
       {/* The Map component represents the core Mapbox GL JS instance. It renders and manages the map view
@@ -82,8 +51,7 @@ const App = () => {
         onMouseUp={e => handleUserInteraction(e)}
         onMoveEnd={() => SpinGlobe()}
         interactiveLayerIds={['clusters']}
-        onClick={e => onClick(e)}
-
+        onClick={event => onClusterClick({ event, mapRef })}
       >
         {/* The Source component represents a data source for the map. It can load and provide geographic data to be displayed on the map. Here, it loads GeoJSON data for earthquake points and clusters */}
         <Source
