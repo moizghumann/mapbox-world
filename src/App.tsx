@@ -8,11 +8,11 @@ import { clusterLayer, clusterCountLayer, unclusteredPointLayer } from '../const
 const App = () => {
 
   const mapRef = useRef<MapRef>(null);
-  const map = mapRef.current;
   const [userInteracting, setUserInteracting] = useState<boolean>(false);
 
   // function variable that animates the rotation of globe
   const SpinGlobe = () => {
+    const map = mapRef.current;
     if (map != null) {
       // calculates the new center for globe rotation based on map zoom and interaction state.
       const newCenter = calculateRotation({ map, userInteracting });
