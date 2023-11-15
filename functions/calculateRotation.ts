@@ -5,16 +5,16 @@ interface Props {
     userInteracting: boolean,
 }
 
-const secondsPerRevolution = 180;
-const maxSpinZoom = 5;
-const slowSpinZoom = 3;
+const secondsPerRevolution = 100;
+const maxSpinZoom = 4;
+const slowSpinZoom = 2;
 
 const calculateRotation = ({ map, userInteracting }: Props) => {
 
     const zoom = map.getZoom();
 
     if (!userInteracting && zoom < maxSpinZoom) {
-        let distancePerSecond = 360 / secondsPerRevolution;
+        let distancePerSecond = 10 / secondsPerRevolution;
 
         if (zoom > slowSpinZoom) {
             const zoomDiff = (maxSpinZoom - zoom) / (maxSpinZoom - slowSpinZoom);
