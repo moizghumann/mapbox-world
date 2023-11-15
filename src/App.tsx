@@ -8,14 +8,15 @@ import { clusterLayer, clusterCountLayer, unclusteredPointLayer } from '../const
 const App = () => {
 
   const mapRef = useRef<MapRef>(null);
+  const map = mapRef.current;
   const [userInteracting, setUserInteracting] = useState<boolean>(false);
 
   // function variable that animates the rotation of globe
   const SpinGlobe = () => {
-    const map = mapRef.current;
     if (map != null) {
       // calculates the new center for globe rotation based on map zoom and interaction state.
       const newCenter = calculateRotation({ map, userInteracting });
+      // console.log(newCenter)
       if (newCenter) {
         // initiates a smooth map transition to the new center with a specified duration and easing function.
         map.easeTo({ center: newCenter, duration: 1000, easing: (n) => n });
@@ -26,12 +27,18 @@ const App = () => {
   // updates the state and calls SpinGlobe function variable based on MapLayerMouseEvent's type
   const handleUserInteraction = (event: MapLayerMouseEvent | ViewStateChangeEvent) => {
     if (event.type === 'mousedown') {
+      console.log('mouse is down')
       setUserInteracting(true);
     } else {
+      console.log('mouse is not down - event type:', event.type)
       setUserInteracting(false);
       SpinGlobe();
     }
   };
+
+  const handleMoveEnd = () => {
+    SpinGlobe();
+  }
 
   return (
     <div className='h-screen'>
@@ -49,7 +56,10 @@ const App = () => {
         onLoad={() => SpinGlobe()}
         onMouseDown={e => handleUserInteraction(e)}
         onMouseUp={e => handleUserInteraction(e)}
-        onMoveEnd={() => SpinGlobe()}
+        onPitchEnd={e => handleUserInteraction(e)}
+        onRotateEnd={e => handleUserInteraction(e)}
+        // onZoom={e => handleUserInteraction(e)}
+        onMoveEnd={handleMoveEnd}
         interactiveLayerIds={['clusters']}
         onClick={event => onClusterClick({ event, mapRef })}
       >
