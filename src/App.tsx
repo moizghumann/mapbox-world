@@ -40,7 +40,7 @@ const App = () => {
   }
 
   return (
-    <div className='h-screen'>
+    <div className='h-screen w-screen'>
       {/* The Map component represents the core Mapbox GL JS instance. It renders and manages the map view
       and interacts with various Mapbox features, such as layers and sources. */}
       <Map
