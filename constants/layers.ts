@@ -1,5 +1,6 @@
 import type { LayerProps } from 'react-map-gl';
 
+// styling properties for the cluster circles. The color and radius of the clusters depend on the number of points within the cluster.
 export const clusterLayer: LayerProps = {
     id: 'clusters',
     type: 'circle',
@@ -11,6 +12,7 @@ export const clusterLayer: LayerProps = {
     }
 };
 
+// styling properties for the text labels inside the cluster circles, displaying the count of points within each cluster.
 export const clusterCountLayer: LayerProps = {
     id: 'cluster-count',
     type: 'symbol',
@@ -23,6 +25,7 @@ export const clusterCountLayer: LayerProps = {
     }
 };
 
+// styling properties for individual, unclustered points.
 export const unclusteredPointLayer: LayerProps = {
     id: 'unclustered-point',
     type: 'circle',
